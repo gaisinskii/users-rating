@@ -12,7 +12,6 @@ export default {
 
 <style lang="scss">
 .page_auth {
-  color: $test2;
   .page {
   }
 }
