@@ -8,6 +8,8 @@
         v-for="(user, index) in users"
         :key="index"
         :user="user"
+        :position="index + 1"
+        class="page__table-row"
       />
     </div>
   </base-page>
@@ -40,11 +42,15 @@ export default {
 .page_main {
   display: flex;
   justify-content: center;
-  align-items: center;
   .page {
-    &__table {
-    }
     &__heading {
+      margin-bottom: 20px;
+    }
+    &__table {
+      width: 600px;
+      margin-top: 100px;
+    }
+    &__table-row {
     }
   }
 }
