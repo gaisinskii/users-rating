@@ -5,14 +5,25 @@
         <h1 class="page__heading">
           Рейтинг участников
         </h1>
-        <select @change="sortUsersByAge($event)">
-          <option value="desc">
-            desc
-          </option>
-          <option value="asc">
-            asc
-          </option>
-        </select>
+        <div class="page__sorting">
+          <div class="page__sorting-block">
+            <label for="page__sort-by-age">Отсортировать по возрасту</label>
+            <select
+              id="page__sort-by-age"
+              @change="sortUsersByAge($event)"
+            >
+              <option value="">
+                Выбрать
+              </option>
+              <option value="desc">
+                От взрослых до мальенких
+              </option>
+              <option value="asc">
+                От мальенких до взрослых
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <base-user-row
@@ -64,11 +75,19 @@ export default {
     &__header {
       margin-bottom: 20px;
     }
+    &__heading {
+      margin-bottom: 15px;
+    }
     &__table {
       width: 600px;
       margin-top: 100px;
     }
-    &__table-row {
+    &__sorting {
+      display: flex;
+    }
+    &__sorting-block {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
