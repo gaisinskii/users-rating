@@ -83,6 +83,7 @@ export default {
   &__position {
     position: absolute;
     left: -50px;
+    font-weight: bold;
   }
   &__avatar-outer {
     display: flex;
