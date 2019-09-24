@@ -16,7 +16,7 @@
       </div>
       <div class="base-user-row__text-block">
         <p class="base-user-row__text--main">
-          {{ user.first_name }} {{ user.second_name }}
+          {{ user.first_name }} {{ user.second_name }}, {{ user.age }}
         </p>
         <p class="base-user-row__text--sub">
           {{ user.job }}
