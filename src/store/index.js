@@ -14,5 +14,6 @@ export default new Vuex.Store({
   mutations: { ...vuexfireMutations },
   actions: {
     bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users').orderBy('rating', 'desc'))),
+    bindDocuments: firestoreAction(({ bindFirestoreRef }, direction) => bindFirestoreRef('users', db.collection('users').orderBy('age', direction))),
   },
 });

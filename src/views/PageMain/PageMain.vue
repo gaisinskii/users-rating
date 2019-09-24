@@ -1,9 +1,20 @@
 <template>
   <base-page name="main">
     <div class="page__table">
-      <h1 class="page__heading">
-        Рейтинг участников
-      </h1>
+      <div class="page__header">
+        <h1 class="page__heading">
+          Рейтинг участников
+        </h1>
+        <select @change="sortUsersByAge($event)">
+          <option value="desc">
+            desc
+          </option>
+          <option value="asc">
+            asc
+          </option>
+        </select>
+      </div>
+
       <base-user-row
         v-for="(user, index) in users"
         :key="index"
@@ -35,6 +46,13 @@ export default {
   created() {
     this.$store.dispatch('bindUsersRef');
   },
+  methods: {
+    sortUsersByAge(e) {
+      console.log(e.target.value);
+      const direction = e.target.value;
+      this.$store.dispatch('bindDocuments', direction);
+    },
+  },
 };
 </script>
 
@@ -43,7 +61,7 @@ export default {
   display: flex;
   justify-content: center;
   .page {
-    &__heading {
+    &__header {
       margin-bottom: 20px;
     }
     &__table {
