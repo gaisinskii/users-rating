@@ -1,12 +1,26 @@
 <template>
   <main class="page_main">
     main
+    <hr>
+    {{ users }}
   </main>
 </template>
 
 <script>
-export default {
+// import firebase from 'firebase';
+import db from '../../firebase';
 
+export default {
+  firestore() {
+    return {
+      users: db.collection('users').orderBy('rating'),
+    };
+  },
+  data() {
+    return {
+      users: [],
+    };
+  },
 };
 </script>
 
