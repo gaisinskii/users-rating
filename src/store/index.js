@@ -13,6 +13,6 @@ export default new Vuex.Store({
   },
   mutations: { ...vuexfireMutations },
   actions: {
-    bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users'))),
+    bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users').orderBy('rating', 'desc'))),
   },
 });
