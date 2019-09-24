@@ -1,32 +1,30 @@
 <template>
   <main class="page_main">
     main
-    <hr>
     {{ users }}
   </main>
 </template>
 
 <script>
-// import firebase from 'firebase';
-import db from '../../firebase';
+import { mapState } from 'vuex';
 
 export default {
-  firestore() {
-    return {
-      users: db.collection('users').orderBy('rating'),
-    };
-  },
   data() {
     return {
-      users: [],
+      rofl: this.$store.state.rofl,
     };
+  },
+  computed: {
+    ...mapState(['users']),
+  },
+  created() {
+    this.$store.dispatch('bindUsersRef');
   },
 };
 </script>
 
 <style lang="scss">
 .page_main {
-  font-size: $test;
   .page {
   }
 }
