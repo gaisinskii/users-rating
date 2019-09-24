@@ -2,11 +2,18 @@
   <div class="base-user-row">
     <div class="base-user-row__col">
       <span class="base-user-row__position"> {{ position }} </span>
-      <img
-        :src="computedAvatar"
-        class="base-user-row__avatar"
-        alt="user image"
-      >
+      <div class="base-user-row__avatar-outer">
+        <div
+          :class="generateAvatarAccentClassByPos(position)"
+          class="base-user-row__avatar-inner"
+        >
+          <img
+            :src="user.avatar"
+            class="base-user-row__avatar"
+            alt="user image"
+          >
+        </div>
+      </div>
       <div class="base-user-row__text-block">
         <p class="base-user-row__text--main">
           {{ user.first_name }} {{ user.second_name }}
@@ -42,15 +49,21 @@ export default {
     },
   },
   computed: {
-    computedAvatar: {
-      get() {
-        return this.user.avatar;
-      },
-      set(v) {
-        if (v === '') {
-          const initials = `${this.user.first_name.charAt(0)} `;
-        }
-      },
+
+  },
+  methods: {
+    generateAvatarAccentClassByPos(position) {
+      switch (position) {
+        case 1:
+          return 'base-user-row__avatar-inner--gold';
+        case 2:
+          return 'base-user-row__avatar-inner--silver';
+        case 3:
+          return 'base-user-row__avatar-inner--bronze';
+        default:
+          break;
+      }
+      return '';
     },
   },
 };
@@ -71,15 +84,58 @@ export default {
     position: absolute;
     left: -50px;
   }
-  &__avatar {
+  &__avatar-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    width: 65px;
+  }
+  &__avatar-inner {
+    position: relative;
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    margin-right: 30px;
+    &::before {
+      display: block;
+      position: absolute;
+
+      height: 100%;
+      width: 100%;
+      bottom: -10px;
+    }
+    &--gold {
+      height: 65px;
+      width: 65px;
+      &::before {
+        content: url("../../assets/images/wreath-gold.svg");
+      }
+    }
+    &--silver {
+      height: 60px;
+      width: 60px;
+      &::before {
+        content: url("../../assets/images/wreath-silver.svg");
+      }
+    }
+    &--bronze {
+      height: 55px;
+      width: 55px;
+      &::before {
+        content: url("../../assets/images/wreath-bronze.svg");
+      }
+    }
+  }
+  &__avatar {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
   }
   &__text-block {
     display: flex;
     flex-direction: column;
+    position: relative;
+    left: 20px;
   }
   &__text {
     &--main {
