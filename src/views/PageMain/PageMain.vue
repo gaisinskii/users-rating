@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-      rofl: this.$store.state.rofl,
     };
   },
   computed: {
