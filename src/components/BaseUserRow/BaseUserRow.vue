@@ -29,7 +29,7 @@
           {{ user.rating }}
         </p>
         <p class="base-user-row__text--sub">
-          баллов
+          {{ pluralize(user.rating, 'бал', 'балла', 'баллов') }}
         </p>
       </div>
     </div>
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+const pluralize = require('numeralize-ru').pluralize; // eslint-disable-line
+
 export default {
   props: {
     user: {
@@ -52,7 +54,8 @@ export default {
 
   },
   methods: {
-    generateAvatarAccentClassByPos(position) {
+    pluralize,
+    generateAvatarAccentClassByPos (position) {
       switch (position) {
         case 1:
           return 'base-user-row__avatar-inner--gold';
@@ -79,6 +82,11 @@ export default {
   &__col {
     display: flex;
     align-items: center;
+    &:last-of-type {
+      .base-user-row__text-block {
+        text-align: right;
+      }
+    }
   }
   &__position {
     position: absolute;
