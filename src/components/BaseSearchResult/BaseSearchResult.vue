@@ -3,7 +3,9 @@
     <div class="base-search-result">
       <div
         ref="modal"
+        v-click-outside="close"
         class="base-search-result__modal"
+        @keyup.esc.native="close"
       >
         <h2>Результат поиска: </h2>
         <div
@@ -25,7 +27,7 @@
             <p>Рейтинг: {{ modal.rating }}</p>
           </div>
         </div>
-        <div v-if="!isUserFound">
+        <div v-else>
           Пользователь не найден
         </div>
         <button
@@ -42,10 +44,24 @@
 
 <script>
 import { mapState } from 'vuex';
+import vClickOutside from 'v-click-outside';
 
 export default {
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   computed: {
     ...mapState(['modal', 'isUserFound']),
+  },
+  mounted() {
+    document.body.addEventListener('keyup', (e) => {
+      if (e.keyCode === 27) {
+        this.close();
+      }
+    });
+  },
+  destroyed() {
+    document.body.removeEventListener('keyup');
   },
   methods: {
     close() {
