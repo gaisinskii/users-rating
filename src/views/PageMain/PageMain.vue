@@ -45,6 +45,7 @@
             </select>
           </div>
         </div>
+        <base-search-bar />
       </div>
 
       <base-user-row
@@ -62,11 +63,13 @@
 import { mapState } from 'vuex';
 import BasePage from '@/components/BasePage/BasePage.vue';
 import BaseUserRow from '@/components/BaseUserRow/BaseUserRow.vue';
+import BaseSearchBar from '@/components/BaseSearchBar/BaseSearchBar.vue';
 
 export default {
   components: {
     BasePage,
     BaseUserRow,
+    BaseSearchBar,
   },
   data() {
     return {

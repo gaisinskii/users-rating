@@ -91,6 +91,7 @@ export default {
     align-items: center;
     height: 65px;
     width: 65px;
+    margin-right: 20px;
   }
   &__avatar-inner {
     position: relative;
@@ -136,7 +137,6 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-    left: 20px;
   }
   &__text {
     &--main {
