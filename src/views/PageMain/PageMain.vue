@@ -110,8 +110,7 @@ export default {
       }
     },
     search(query) {
-      this.showModal();
-      console.log('i am searching', query);
+      this.$store.dispatch('findUser', query);
     },
   },
 };

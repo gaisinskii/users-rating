@@ -7,6 +7,8 @@
       >
         gdfgdfgdfgdfgfdgdfg
 
+        {{ modal }}
+
         <footer class="modal-footer">
           <slot name="footer">
             <button
@@ -24,12 +26,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState(['modal']),
+  },
   methods: {
     close() {
       this.$emit('close');
     },
   },
+
 };
 </script>
 

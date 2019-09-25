@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     users: [],
+    modal: {},
     isModalVisible: false,
   },
   mutations: {
@@ -19,10 +20,22 @@ export default new Vuex.Store({
     HIDE_MODAL(state) {
       state.isModalVisible = false;
     },
+    FETCH_MODAL(state, payload) {
+      state.modal = payload;
+    },
     ...vuexfireMutations,
   },
   actions: {
     bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users').orderBy('rating', 'desc'))),
     sortUsers: firestoreAction(({ bindFirestoreRef }, payload) => bindFirestoreRef('users', db.collection('users').orderBy(payload.sort, payload.direction))),
+    findUser({ commit }, user) {
+      const foundUser = db.collection('users').where('first_name', '==', user);
+      foundUser.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          commit('FETCH_MODAL', doc.data());
+          commit('SHOW_MODAL');
+        });
+      });
+    },
   },
 });
