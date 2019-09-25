@@ -43,6 +43,7 @@ export default {
   }
   &__input {
     height: 100%;
+    width: 100%;
     border: none;
   }
   &__btn {
