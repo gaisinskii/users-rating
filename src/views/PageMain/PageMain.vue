@@ -10,6 +10,8 @@
             <label for="page__sort-by-age">Отсортировать по возрасту</label>
             <select
               id="page__sort-by-age"
+              ref="ageSelect"
+              class="page__select"
               @change="sortUsers($event, 'age')"
             >
               <option value="">
@@ -27,6 +29,8 @@
             <label for="page__sort-by-rating">Отсортировать по рейтингу</label>
             <select
               id="page__sort-by-rating"
+              ref="ratingSelect"
+              class="page__select"
               @change="sortUsers($event, 'rating')"
             >
               <option value="">
@@ -80,8 +84,12 @@ export default {
         direction: e.target.value,
         sort: sortType,
       };
-      console.log(payload);
-      this.$store.dispatch('bindDocuments', payload);
+      this.$store.dispatch('sortUsers', payload);
+      if (payload.sort === 'age') {
+        this.$refs.ratingSelect.value = '';
+      } else {
+        this.$refs.ageSelect.value = '';
+      }
     },
   },
 };
@@ -108,6 +116,15 @@ export default {
     &__sorting-block {
       display: flex;
       flex-direction: column;
+      &:not(:last-of-type) {
+        margin-right: 15px;
+      }
+    }
+    &__select {
+      border: none;
+      border-bottom: 1px solid #000;
+      padding: 5px 0;
+      outline: none;
     }
   }
 }
