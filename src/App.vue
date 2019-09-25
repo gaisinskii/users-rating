@@ -1,13 +1,21 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :style="isModalVisible ? {'overflow-y': 'hidden'} : ''"
+  >
     <router-view />
   </div>
 </template>
 
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState(['users', 'isModalVisible']),
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 </style>

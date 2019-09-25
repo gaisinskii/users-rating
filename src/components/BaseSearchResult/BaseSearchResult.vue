@@ -33,7 +33,7 @@ export default {
     ...mapState(['modal']),
   },
   methods: {
-    close() {
+    close () {
       this.$emit('close');
     },
   },
@@ -55,6 +55,8 @@ export default {
   &__modal {
     display: flex;
     flex-direction: column;
+    width: 50vw;
+    height: 50vh;
     background: #ffffff;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
