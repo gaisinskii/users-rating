@@ -7,7 +7,7 @@
       <input
         v-model="query"
         type="text"
-        placeholder="Search.."
+        placeholder="Введите имя"
         class="base-search-bar__input"
       >
       <button

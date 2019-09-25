@@ -37,7 +37,6 @@ export default new Vuex.Store({
       const foundUser = db.collection('users').where('first_name', '==', user);
       foundUser.get().then((querySnapshot) => {
         if (querySnapshot.empty === true) {
-          console.log('no data');
           commit('USER_FOUND', false);
           commit('SHOW_MODAL');
         } else {
