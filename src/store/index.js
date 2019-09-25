@@ -12,6 +12,7 @@ export default new Vuex.Store({
     users: [],
     modal: {},
     isModalVisible: false,
+    isUserFound: true,
   },
   mutations: {
     SHOW_MODAL(state) {
@@ -19,9 +20,13 @@ export default new Vuex.Store({
     },
     HIDE_MODAL(state) {
       state.isModalVisible = false;
+      state.modal = {};
     },
     FETCH_MODAL(state, payload) {
       state.modal = payload;
+    },
+    USER_FOUND(state, payload) {
+      state.isUserFound = payload;
     },
     ...vuexfireMutations,
   },
@@ -31,10 +36,17 @@ export default new Vuex.Store({
     findUser({ commit }, user) {
       const foundUser = db.collection('users').where('first_name', '==', user);
       foundUser.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          commit('FETCH_MODAL', doc.data());
+        if (querySnapshot.empty === true) {
+          console.log('no data');
+          commit('USER_FOUND', false);
           commit('SHOW_MODAL');
-        });
+        } else {
+          querySnapshot.forEach((doc) => {
+            commit('USER_FOUND', true);
+            commit('FETCH_MODAL', doc.data());
+            commit('SHOW_MODAL');
+          });
+        }
       });
     },
   },

@@ -59,10 +59,7 @@
         class="page__table-row"
       />
     </div>
-    <base-search-result
-      v-show="isModalVisible"
-      @close="closeModal"
-    />
+    <base-search-result v-show="isModalVisible" />
   </base-page>
 </template>
 
@@ -91,12 +88,6 @@ export default {
     this.$store.dispatch('bindUsersRef');
   },
   methods: {
-    showModal() {
-      this.$store.commit('SHOW_MODAL');
-    },
-    closeModal() {
-      this.$store.commit('HIDE_MODAL');
-    },
     sortUsers(e, sortType) {
       const payload = {
         direction: e.target.value,
