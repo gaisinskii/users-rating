@@ -45,7 +45,10 @@
             </select>
           </div>
         </div>
-        <base-search-bar />
+        <base-search-bar
+          class="page__search"
+          @search="search"
+        />
       </div>
 
       <base-user-row
@@ -56,6 +59,10 @@
         class="page__table-row"
       />
     </div>
+    <base-search-result
+      v-show="isModalVisible"
+      @close="closeModal"
+    />
   </base-page>
 </template>
 
@@ -64,24 +71,32 @@ import { mapState } from 'vuex';
 import BasePage from '@/components/BasePage/BasePage.vue';
 import BaseUserRow from '@/components/BaseUserRow/BaseUserRow.vue';
 import BaseSearchBar from '@/components/BaseSearchBar/BaseSearchBar.vue';
+import BaseSearchResult from '@/components/BaseSearchResult/BaseSearchResult.vue';
 
 export default {
   components: {
     BasePage,
     BaseUserRow,
     BaseSearchBar,
+    BaseSearchResult,
   },
   data() {
     return {
     };
   },
   computed: {
-    ...mapState(['users']),
+    ...mapState(['users', 'isModalVisible']),
   },
   created() {
     this.$store.dispatch('bindUsersRef');
   },
   methods: {
+    showModal() {
+      this.$store.commit('SHOW_MODAL');
+    },
+    closeModal() {
+      this.$store.commit('HIDE_MODAL');
+    },
     sortUsers(e, sortType) {
       const payload = {
         direction: e.target.value,
@@ -94,6 +109,10 @@ export default {
         this.$refs.ageSelect.value = '';
       }
     },
+    search(query) {
+      this.showModal();
+      console.log('i am searching', query);
+    },
   },
 };
 </script>
@@ -104,6 +123,7 @@ export default {
   justify-content: center;
   .page {
     &__header {
+      position: relative;
       margin-bottom: 20px;
     }
     &__heading {
@@ -128,6 +148,11 @@ export default {
       border-bottom: 1px solid #000;
       padding: 5px 0;
       outline: none;
+    }
+    &__search {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
 }

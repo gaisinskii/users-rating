@@ -10,8 +10,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     users: [],
+    isModalVisible: false,
   },
-  mutations: { ...vuexfireMutations },
+  mutations: {
+    SHOW_MODAL(state) {
+      state.isModalVisible = true;
+    },
+    HIDE_MODAL(state) {
+      state.isModalVisible = false;
+    },
+    ...vuexfireMutations,
+  },
   actions: {
     bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users').orderBy('rating', 'desc'))),
     sortUsers: firestoreAction(({ bindFirestoreRef }, payload) => bindFirestoreRef('users', db.collection('users').orderBy(payload.sort, payload.direction))),
