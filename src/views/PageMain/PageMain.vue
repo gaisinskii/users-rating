@@ -101,7 +101,11 @@ export default {
       }
     },
     search(query) {
-      const fullName = query.split(' ');
+      const capilalizedFullName = query.toLowerCase()
+        .split(' ')
+        .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ');
+      const fullName = capilalizedFullName.split(' ');
       if (fullName.length !== 2) {
         this.$store.dispatch('findUser', { firstName: '', secondName: '' });
       } else {
