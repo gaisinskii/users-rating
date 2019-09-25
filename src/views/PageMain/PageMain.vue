@@ -10,7 +10,7 @@
             <label for="page__sort-by-age">Отсортировать по возрасту</label>
             <select
               id="page__sort-by-age"
-              @change="sortUsersByAge($event)"
+              @change="sortUsers($event, 'age')"
             >
               <option value="">
                 Выбрать
@@ -20,6 +20,23 @@
               </option>
               <option value="asc">
                 От мальенких до взрослых
+              </option>
+            </select>
+          </div>
+          <div class="page__sorting-block">
+            <label for="page__sort-by-rating">Отсортировать по рейтингу</label>
+            <select
+              id="page__sort-by-rating"
+              @change="sortUsers($event, 'rating')"
+            >
+              <option value="">
+                Выбрать
+              </option>
+              <option value="desc">
+                От высокого до низкого
+              </option>
+              <option value="asc">
+                От низкого до высокого
               </option>
             </select>
           </div>
@@ -58,10 +75,13 @@ export default {
     this.$store.dispatch('bindUsersRef');
   },
   methods: {
-    sortUsersByAge(e) {
-      console.log(e.target.value);
-      const direction = e.target.value;
-      this.$store.dispatch('bindDocuments', direction);
+    sortUsers(e, sortType) {
+      const payload = {
+        direction: e.target.value,
+        sort: sortType,
+      };
+      console.log(payload);
+      this.$store.dispatch('bindDocuments', payload);
     },
   },
 };
