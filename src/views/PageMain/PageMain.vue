@@ -102,7 +102,7 @@ export default {
     },
     search(query) {
       const fullName = query.split(' ');
-      if (fullName.length < 2) {
+      if (fullName.length !== 2) {
         this.$store.dispatch('findUser', { firstName: '', secondName: '' });
       } else {
         const computedQuery = {
