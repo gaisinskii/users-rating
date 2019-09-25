@@ -101,7 +101,16 @@ export default {
       }
     },
     search(query) {
-      this.$store.dispatch('findUser', query);
+      const fullName = query.split(' ');
+      if (fullName.length < 2) {
+        this.$store.dispatch('findUser', { firstName: '', secondName: '' });
+      } else {
+        const computedQuery = {
+          firstName: fullName[0],
+          secondName: fullName[1],
+        };
+        this.$store.dispatch('findUser', computedQuery);
+      }
     },
   },
 };

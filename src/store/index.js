@@ -34,7 +34,10 @@ export default new Vuex.Store({
     bindUsersRef: firestoreAction(context => context.bindFirestoreRef('users', db.collection('users').orderBy('rating', 'desc'))),
     sortUsers: firestoreAction(({ bindFirestoreRef }, payload) => bindFirestoreRef('users', db.collection('users').orderBy(payload.sort, payload.direction))),
     findUser({ commit }, user) {
-      const foundUser = db.collection('users').where('first_name', '==', user);
+      const foundUser = db
+        .collection('users')
+        .where('first_name', '==', user.firstName)
+        .where('second_name', '==', user.secondName);
       foundUser.get().then((querySnapshot) => {
         if (querySnapshot.empty === true) {
           commit('USER_FOUND', false);
